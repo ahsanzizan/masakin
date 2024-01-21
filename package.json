@@ -13,10 +13,12 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/vector-icons": "^13.0.0",
     "@react-navigation/native": "^6.0.2",
     "expo": "~49.0.15",
-    "expo-font": "~11.6.0",
+    "expo-app-loading": "^2.1.1",
+    "expo-font": "~11.4.0",
     "expo-linking": "~6.0.0",
     "expo-router": "^2.0.0",
     "expo-splash-screen": "~0.22.0",
