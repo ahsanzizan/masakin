@@ -59,11 +59,11 @@ export const useSession = () => {
     init();
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (username: string, password: string) => {
     const response = await fetchApi<LoginResponse>("/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, password }),
     });
 
     if (!isSuccess(response))
