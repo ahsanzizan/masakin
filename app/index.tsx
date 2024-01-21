@@ -1,5 +1,10 @@
-import { Text } from "react-native";
+import { Redirect } from "expo-router";
+import { useSession } from "../lib/auth";
 
 export default function Root() {
-  return <Text>Test</Text>;
+  const { loggedIn } = useSession();
+
+  if (!loggedIn) return <Redirect href={"/login"} />;
+
+  return <Redirect href={"/home"} />;
 }
