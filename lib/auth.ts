@@ -37,18 +37,18 @@ export const getAuthInfo = async () => {
 };
 
 export const useSession = () => {
-  // If all of the properties are set to null, then the user is not
-  // authenticated
   const [user, setUser] = useState<AuthUser>({
     sub: null,
     createdAt: null,
     username: null,
     email: null,
   });
+  const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
 
   const loadUserInfo = async () => {
     const authInfo = await getAuthInfo();
     setUser(authInfo);
+    setLoggedIn(authInfo.sub !== null);
   };
 
   useEffect(() => {
@@ -90,5 +90,5 @@ export const useSession = () => {
     router.push("/login");
   };
 
-  return { user, loggedIn: Boolean(user.sub), login, logout };
+  return { user, loggedIn, login, logout };
 };
