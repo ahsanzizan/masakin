@@ -17,7 +17,7 @@ export const getUsers = async (page?: number, search?: string) => {
 };
 
 export const getUserById = async (id: string) => {
-  const user = await fetchApiWithAuth<UserWithoutPassword>(`/recipes/${id}`);
+  const user = await fetchApiWithAuth<UserWithoutPassword>(`/users/${id}`);
   if (!isSuccess(user)) {
     throw new Error(
       `Fetch user responded with status ${user.statusCode}${
