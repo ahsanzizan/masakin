@@ -20,7 +20,7 @@ export const getRecipeById = async (id: string) => {
   const recipe = await fetchApiWithAuth<Recipe>(`recipes/${id}`);
   if (!isSuccess(recipe)) {
     throw new Error(
-      `Fetch recipes responded with status ${recipe.statusCode}${
+      `Fetch recipe responded with status ${recipe.statusCode}${
         recipe.message ? ` "${recipe.message}"` : ""
       }`
     );
