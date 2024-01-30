@@ -52,7 +52,7 @@ export default function OnBoarding() {
             Simplest way to find the tasty recipes
           </P>
         </View>
-        <PrimaryButton onPress={() => router.push("/home")}>
+        <PrimaryButton onPress={() => router.push("/login")}>
           <P
             style={{
               textAlign: "center",
