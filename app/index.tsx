@@ -6,22 +6,22 @@ import OnBoarding from "./onboarding";
 
 export default function Root() {
   const { loggedIn } = useSession();
-  const [firstLaunch, setFirstLaunch] = useState<boolean | null>(null);
+  const [firstLaunch, setFirstLaunch] = useState<boolean | null>(true);
 
-  useEffect(() => {
-    const init = async () => {
-      const getFirstLaunch = await getSecureItem("firstLaunch");
+  // useEffect(() => {
+  //   const init = async () => {
+  //     const getFirstLaunch = await getSecureItem("firstLaunch");
 
-      if (getFirstLaunch === null) {
-        setFirstLaunch(true);
-        setSecureItem("firstLaunch", "false");
-      } else {
-        setFirstLaunch(false);
-      }
-    };
+  //     if (getFirstLaunch === null) {
+  //       setFirstLaunch(true);
+  //       setSecureItem("firstLaunch", "false");
+  //     } else {
+  //       setFirstLaunch(false);
+  //     }
+  //   };
 
-    init();
-  }, []);
+  //   init();
+  // }, []);
 
   if (!loggedIn && !firstLaunch) return <Redirect href={"/login"} />;
 

@@ -1,12 +1,14 @@
+import { router } from "expo-router";
 import {
   Image,
   SafeAreaView,
   Text,
-  TouchableOpacity,
-  View,
+  View
 } from "react-native";
+import { PrimaryButton } from "../components/Button";
+import { H1, P } from "../components/Text";
+import ArrowIcon from "../components/icons/ArrowIcon";
 import Colors from "../constants/Colors";
-import { router } from "expo-router";
 
 export default function OnBoarding() {
   return (
@@ -38,47 +40,30 @@ export default function OnBoarding() {
       </View>
       <View style={{ marginBottom: 84 }}>
         <View style={{ marginBottom: 64 }}>
-          <Text
-            style={{
-              color: Colors.dark.text,
-              fontWeight: "bold",
-              fontSize: 42,
-              textAlign: "center",
-              marginBottom: 20,
-            }}
-          >
+          <H1 style={{ textAlign: "center", marginBottom: 20 }} isDark>
             Let's Do Some Cooking!
-          </Text>
-          <Text
+          </H1>
+          <P
             style={{
-              color: Colors.dark.text,
-              fontSize: 16,
               textAlign: "center",
             }}
+            isDark
           >
             Simplest way to find the tasty recipes
-          </Text>
+          </P>
         </View>
-        <TouchableOpacity
-          style={{
-            paddingHorizontal: 32,
-            paddingVertical: 16,
-            backgroundColor: Colors.dark.primary,
-            borderRadius: 12,
-          }}
-          onPress={() => router.push("/home")}
-        >
-          <Text
+        <PrimaryButton onPress={() => router.push("/home")}>
+          <P
             style={{
-              color: Colors.dark.text,
-              fontSize: 16,
               textAlign: "center",
               fontWeight: "bold",
             }}
+            isDark
           >
             Get Started
-          </Text>
-        </TouchableOpacity>
+          </P>
+          <ArrowIcon />
+        </PrimaryButton>
       </View>
     </SafeAreaView>
   );
