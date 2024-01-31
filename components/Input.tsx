@@ -1,5 +1,4 @@
-import { StyleProp, TextStyle } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import { StyleProp, TextInput, TextStyle } from "react-native";
 import Colors from "../constants/Colors";
 
 interface InputFieldProps {
