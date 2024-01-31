@@ -1,14 +1,8 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import {
-  Alert,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  TextInput,
-  View,
-} from "react-native";
+import { Alert, SafeAreaView, ScrollView, StatusBar, View } from "react-native";
 import { PrimaryButton, ReversedPrimaryButton } from "../components/Button";
+import { InputField } from "../components/Input";
 import { H2, LargeP, P, SmallP } from "../components/Text";
 import Colors from "../constants/Colors";
 import { useSession } from "../lib/auth";
@@ -58,15 +52,7 @@ export default function LoginPage() {
         >
           <View style={{ flex: 1, flexDirection: "column", gap: 5 }}>
             <P>Username</P>
-            <TextInput
-              style={{
-                paddingHorizontal: 20,
-                paddingVertical: 18,
-                borderWidth: 2,
-                borderColor: Colors.gray,
-                borderRadius: 10,
-                fontSize: 12,
-              }}
+            <InputField
               placeholder="Enter Username"
               onChangeText={(text) => setUsername(text)}
               value={username}
@@ -74,17 +60,9 @@ export default function LoginPage() {
           </View>
           <View style={{ flex: 1, flexDirection: "column", gap: 5 }}>
             <P>Password</P>
-            <TextInput
-              style={{
-                paddingHorizontal: 20,
-                paddingVertical: 18,
-                borderWidth: 2,
-                borderColor: Colors.gray,
-                borderRadius: 10,
-                fontSize: 12,
-              }}
+            <InputField
               placeholder="Enter Password"
-              secureTextEntry
+              isSecure
               onChangeText={(text) => setPassword(text)}
               value={password}
             />
