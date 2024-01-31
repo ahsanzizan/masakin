@@ -6,7 +6,7 @@ import OnBoarding from "./onboarding";
 
 export default function Root() {
   const { loggedIn } = useSession();
-  const [firstLaunch, setFirstLaunch] = useState<boolean | null>(true);
+  const [firstLaunch, setFirstLaunch] = useState<boolean | null>(null);
 
   useEffect(() => {
     const init = async () => {
