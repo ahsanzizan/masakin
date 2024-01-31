@@ -26,10 +26,9 @@ export default function LoginPage() {
       <StatusBar />
       <ScrollView
         style={{
-          paddingHorizontal: 30,
-          paddingVertical: 94,
           width: dimensions.windows.width,
         }}
+        contentContainerStyle={{ paddingHorizontal: 30, paddingVertical: 94 }}
       >
         <View
           style={{
