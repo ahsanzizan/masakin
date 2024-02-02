@@ -19,5 +19,6 @@ export const clearSecureItems = async () => {
   if ((await getSecureItem("token")) && (await getSecureItem("userInfo"))) {
     await deleteSecureItem("token");
     await deleteSecureItem("userInfo");
+    await deleteSecureItem("loggedIn");
   }
 };
