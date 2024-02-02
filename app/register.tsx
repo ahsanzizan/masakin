@@ -132,6 +132,7 @@ export default function RegistrationPage() {
               );
 
             const tryRegister = await fetchApi<null>("/auth/register", {
+              method: "POST",
               body: JSON.stringify({ username, email, password }),
             });
             if (tryRegister.statusCode !== 200)
