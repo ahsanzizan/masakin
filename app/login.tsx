@@ -1,18 +1,21 @@
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, SafeAreaView, ScrollView, StatusBar, View } from "react-native";
 import { PrimaryButton, ReversedPrimaryButton } from "../components/Button";
 import { InputField } from "../components/Input";
 import { H2, LargeP, P, SmallP } from "../components/Text";
 import Colors from "../constants/Colors";
-import { useSession } from "../lib/auth";
+import { LoginResponse, useSession } from "../lib/auth";
+import { ApiResponse } from "../utils/api";
 import dimensions from "../utils/dimensions";
 
 export default function LoginPage() {
-  const { login } = useSession();
+  const { login, loggedIn } = useSession();
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  if (loggedIn) return <Redirect href={"/home"} />;
 
   return (
     <SafeAreaView
@@ -83,7 +86,14 @@ export default function LoginPage() {
                 "Please fill in the password field"
               );
 
-            const tryLogin = await login(username, password);
+            let tryLogin: ApiResponse<LoginResponse>;
+
+            try {
+              tryLogin = await login(username, password);
+            } catch (e) {
+              return Alert.alert("Login Failed!", "Something wrong occured");
+            }
+
             if (tryLogin.statusCode !== 200)
               return Alert.alert("Login Failed!", tryLogin.message);
             else router.push("/home");

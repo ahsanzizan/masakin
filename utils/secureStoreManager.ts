@@ -1,7 +1,7 @@
 import * as SecureStore from "expo-secure-store";
 
 // For type safety purpose
-type Keys = "token" | "firstLaunch" | "userInfo";
+type Keys = "token" | "firstLaunch" | "userInfo" | "loggedIn";
 
 export const getSecureItem = async (key: Keys) => {
   return await SecureStore.getItemAsync(key);

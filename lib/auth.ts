@@ -8,7 +8,7 @@ import {
 } from "../utils/secureStoreManager";
 import { router } from "expo-router";
 
-type LoginResponse = {
+export type LoginResponse = {
   sub: string;
   createdAt: Date;
   username: string;
@@ -47,8 +47,10 @@ export const useSession = () => {
 
   const loadUserInfo = async () => {
     const authInfo = await getAuthInfo();
-    setUser(authInfo);
-    setLoggedIn(authInfo.sub !== null);
+    setUser(() => authInfo);
+
+    const getLoggedIn = await getSecureItem("loggedIn");
+    setLoggedIn(() => Boolean(getLoggedIn));
   };
 
   useEffect(() => {
@@ -60,7 +62,7 @@ export const useSession = () => {
   }, []);
 
   const login = async (username: string, password: string) => {
-    const response = await fetchApi<LoginResponse>("/login", {
+    const response = await fetchApi<LoginResponse>("/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -74,6 +76,7 @@ export const useSession = () => {
     const { access_token, ...userInfo } = response.result;
     await setSecureItem("token", access_token);
     await setSecureItem("userInfo", JSON.stringify(userInfo));
+    await setSecureItem("loggedIn", "true");
 
     // Reload the session
     await loadUserInfo();

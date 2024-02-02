@@ -5,8 +5,8 @@ import { PrimaryButton, ReversedPrimaryButton } from "../components/Button";
 import { InputField } from "../components/Input";
 import { LargeP, P, SmallP } from "../components/Text";
 import Colors from "../constants/Colors";
-import { useSession } from "../lib/auth";
-import { fetchApi } from "../utils/api";
+import { LoginResponse, useSession } from "../lib/auth";
+import { ApiResponse, fetchApi, isSuccess } from "../utils/api";
 import dimensions from "../utils/dimensions";
 
 export default function RegistrationPage() {
@@ -133,14 +133,26 @@ export default function RegistrationPage() {
 
             const tryRegister = await fetchApi<null>("/auth/register", {
               method: "POST",
+              headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ username, email, password }),
             });
-            if (tryRegister.statusCode !== 200)
-              return Alert.alert("Registration Failed!", tryRegister.message);
+            if (!isSuccess(tryRegister))
+              return Alert.alert(
+                "Registration Failed!",
+                tryRegister.message.toString()
+              );
 
-            const tryLogin = await login(username, password);
+            // Sign in the user right after they signed up
+            let tryLogin: ApiResponse<LoginResponse>;
+
+            try {
+              tryLogin = await login(username, password);
+            } catch (e) {
+              return Alert.alert("Login Failed!", "Something wrong occured");
+            }
+
             if (tryLogin.statusCode !== 200)
-              return Alert.alert("Login Failed!", tryRegister.message);
+              return Alert.alert("Login Failed!", tryLogin.message);
             else router.push("/home");
           }}
         >
