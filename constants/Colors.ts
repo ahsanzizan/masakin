@@ -20,5 +20,6 @@ export default {
   black: "#000",
   white: "#fff",
   gray: "#D9D9D9",
+  neutral: "#A9A9A9",
   primary,
 };

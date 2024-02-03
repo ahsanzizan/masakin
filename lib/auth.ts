@@ -13,6 +13,7 @@ export type LoginResponse = {
   createdAt: Date;
   username: string;
   email: string;
+  avatar: string | null;
   access_token: string;
 };
 
@@ -24,6 +25,7 @@ export const getAuthInfo = async () => {
     createdAt: null,
     username: null,
     email: null,
+    avatar: null,
   };
 
   if (getUserInfo) {
@@ -42,6 +44,7 @@ export const useSession = () => {
     createdAt: null,
     username: null,
     email: null,
+    avatar: null,
   });
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
 
@@ -75,7 +78,7 @@ export const useSession = () => {
 
     const { access_token, ...userInfo } = response.result;
     await setSecureItem("token", access_token);
-    await setSecureItem("userInfo", JSON.stringify(userInfo));
+    await setSecureItem("userInfo", JSON.stringify({ ...userInfo }));
     await setSecureItem("loggedIn", "true");
 
     // Reload the session

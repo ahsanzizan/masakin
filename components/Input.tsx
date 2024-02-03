@@ -1,5 +1,6 @@
-import { StyleProp, TextInput, TextStyle } from "react-native";
+import { StyleProp, TextInput, TextStyle, View } from "react-native";
 import Colors from "../constants/Colors";
+import SearchIcon from "./icons/SearchIcon";
 
 interface InputFieldProps {
   style?: StyleProp<TextStyle>;
@@ -32,5 +33,46 @@ export function InputField({
       value={value}
       secureTextEntry={isSecure}
     />
+  );
+}
+
+export function SearchField({
+  style,
+  placeholder,
+  onChangeText,
+  value,
+}: Readonly<InputFieldProps>) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#fff",
+        borderWidth: 2,
+        borderColor: Colors.gray,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        borderRadius: 8,
+      }}
+    >
+      <SearchIcon />
+      <TextInput
+        style={{
+          flex: 1,
+          paddingVertical: 10,
+          paddingRight: 10,
+          backgroundColor: "#fff",
+          marginLeft: 8,
+          ...(style as object),
+        }}
+        placeholder={placeholder}
+        onChangeText={onChangeText}
+        value={value}
+        underlineColorAndroid="transparent"
+        placeholderTextColor={Colors.neutral}
+      />
+    </View>
   );
 }

@@ -16,6 +16,7 @@ export interface UserWithoutPassword {
   email: string;
   createdAt: Date;
   bio: string | null;
+  avatar: string;
 }
 
 export interface Recipe {
