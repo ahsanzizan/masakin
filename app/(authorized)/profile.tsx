@@ -12,7 +12,7 @@ import Colors from "../../constants/Colors";
 import { useSession } from "../../lib/auth";
 import dimensions from "../../utils/dimensions";
 
-export default function Home() {
+export default function Profile() {
   const { user } = useSession();
 
   return (
