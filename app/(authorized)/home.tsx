@@ -1,19 +1,18 @@
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
   Image,
   SafeAreaView,
   ScrollView,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
+import { LargeP, SmallP } from "../../components/Text";
+import FilterIcon from "../../components/icons/FilterIcon";
+import SearchIcon from "../../components/icons/SearchIcon";
 import Colors from "../../constants/Colors";
 import { useSession } from "../../lib/auth";
 import dimensions from "../../utils/dimensions";
-import { LargeP, SmallP } from "../../components/Text";
-import { router } from "expo-router";
-import { SearchField } from "../../components/Input";
-import FilterIcon from "../../components/icons/FilterIcon";
 
 export default function Home() {
   const { user } = useSession();
@@ -62,12 +61,45 @@ export default function Home() {
             />
           </TouchableOpacity>
         </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingBottom: 8,
+          }}
+        >
           <TouchableOpacity
             onPress={() => router.push("/search")}
             style={{ width: "75%", height: "auto" }}
           >
-            <SearchField placeholder="Search Recipes" />
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#fff",
+                borderWidth: 2,
+                borderColor: Colors.gray,
+                paddingVertical: 5,
+                paddingHorizontal: 10,
+                borderRadius: 8,
+              }}
+            >
+              <SearchIcon />
+              <SmallP
+                style={{
+                  flex: 1,
+                  paddingVertical: 10,
+                  paddingRight: 10,
+                  backgroundColor: "#fff",
+                  color: Colors.neutral,
+                  marginLeft: 12,
+                }}
+              >
+                Search Recipes
+              </SmallP>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -81,6 +113,23 @@ export default function Home() {
           >
             <FilterIcon />
           </TouchableOpacity>
+        </View>
+        <View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingVertical: 12,
+            }}
+          >
+            <LargeP style={{ fontWeight: "bold" }}>Trending Now🔥</LargeP>
+            <TouchableOpacity>
+              <SmallP style={{ color: Colors.primary, fontWeight: "bold" }}>
+                See All
+              </SmallP>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
