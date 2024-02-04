@@ -1,19 +1,16 @@
-import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-  View,
+    Image,
+    SafeAreaView,
+    ScrollView,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import { LargeP, P, SmallP } from "../../components/Text";
-import FilterIcon from "../../components/icons/FilterIcon";
-import SearchIcon from "../../components/icons/SearchIcon";
+import MoreIcon from "../../components/icons/MoreIcon";
 import Colors from "../../constants/Colors";
 import { useSession } from "../../lib/auth";
 import dimensions from "../../utils/dimensions";
-import MoreIcon from "../../components/icons/MoreIcon";
 
 export default function Home() {
   const { user } = useSession();
