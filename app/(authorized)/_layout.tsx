@@ -1,5 +1,8 @@
-import { Redirect, Stack } from "expo-router";
+import { Redirect, Slot, Stack } from "expo-router";
 import { useSession } from "../../lib/auth";
+import { SafeAreaView, StatusBar, View } from "react-native";
+import Colors from "../../constants/Colors";
+import BottomBar from "../../components/BottomBar";
 
 export default function Protected() {
   const { loggedIn } = useSession();
@@ -9,5 +12,20 @@ export default function Protected() {
 
   if (!loggedIn) return <Redirect href={"/login"} />;
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "space-between",
+        backgroundColor: Colors.light.background,
+      }}
+    >
+      <StatusBar />
+      <Slot />
+      <View>
+        <BottomBar />
+      </View>
+    </SafeAreaView>
+  );
 }

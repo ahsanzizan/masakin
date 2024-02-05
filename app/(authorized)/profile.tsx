@@ -1,10 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import {
-    Image,
-    SafeAreaView,
-    ScrollView,
-    TouchableOpacity,
-    View,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { LargeP, P, SmallP } from "../../components/Text";
 import MoreIcon from "../../components/icons/MoreIcon";
@@ -16,98 +16,88 @@ export default function Profile() {
   const { user } = useSession();
 
   return (
-    <SafeAreaView
+    <ScrollView
       style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: Colors.light.background,
+        width: dimensions.windows.width,
       }}
+      contentContainerStyle={{ paddingHorizontal: 30, paddingVertical: 94 }}
     >
-      <StatusBar />
-      <ScrollView
+      <View
         style={{
-          width: dimensions.windows.width,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
-        contentContainerStyle={{ paddingHorizontal: 30, paddingVertical: 94 }}
       >
+        {/* Placeholder only */}
+        <View></View>
+        {/* Placeholder only */}
+        <LargeP style={{ fontWeight: "bold" }}>Profile</LargeP>
+        <TouchableOpacity>
+          <MoreIcon />
+        </TouchableOpacity>
+      </View>
+      <View style={{ paddingVertical: 10 }}>
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            marginBottom: 18,
           }}
         >
-          {/* Placeholder only */}
-          <View></View>
-          {/* Placeholder only */}
-          <LargeP style={{ fontWeight: "bold" }}>Profile</LargeP>
-          <TouchableOpacity>
-            <MoreIcon />
-          </TouchableOpacity>
-        </View>
-        <View style={{ paddingVertical: 10 }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 18,
-            }}
-          >
-            <Image
-              source={
-                user.avatar
-                  ? {
-                      uri: user.avatar,
-                    }
-                  : require("../../assets/images/profile_picture_placeholder.jpg")
-              }
-              style={{ width: 84, height: 84, borderRadius: 100 }}
-            />
+          <Image
+            source={
+              user.avatar
+                ? {
+                    uri: user.avatar,
+                  }
+                : require("../../assets/images/profile_picture_placeholder.jpg")
+            }
+            style={{ width: 84, height: 84, borderRadius: 100 }}
+          />
+          <View style={{ flexDirection: "row", gap: 18, alignItems: "center" }}>
             <View
-              style={{ flexDirection: "row", gap: 18, alignItems: "center" }}
+              style={{
+                flexDirection: "column",
+                gap: 2,
+                alignItems: "center",
+              }}
             >
-              <View
-                style={{
-                  flexDirection: "column",
-                  gap: 2,
-                  alignItems: "center",
-                }}
-              >
-                <SmallP style={{ color: Colors.neutral }}>Recipes</SmallP>
-                <LargeP style={{ fontWeight: "bold" }}>4</LargeP>
-              </View>
-              <View
-                style={{
-                  flexDirection: "column",
-                  gap: 2,
-                  alignItems: "center",
-                }}
-              >
-                <SmallP style={{ color: Colors.neutral }}>Followers</SmallP>
-                <LargeP style={{ fontWeight: "bold" }}>25M</LargeP>
-              </View>
-              <View
-                style={{
-                  flexDirection: "column",
-                  gap: 2,
-                  alignItems: "center",
-                }}
-              >
-                <SmallP style={{ color: Colors.neutral }}>Following</SmallP>
-                <LargeP style={{ fontWeight: "bold" }}>1</LargeP>
-              </View>
+              <SmallP style={{ color: Colors.neutral }}>Recipes</SmallP>
+              <LargeP style={{ fontWeight: "bold" }}>4</LargeP>
+            </View>
+            <View
+              style={{
+                flexDirection: "column",
+                gap: 2,
+                alignItems: "center",
+              }}
+            >
+              <SmallP style={{ color: Colors.neutral }}>Followers</SmallP>
+              <LargeP style={{ fontWeight: "bold" }}>25M</LargeP>
+            </View>
+            <View
+              style={{
+                flexDirection: "column",
+                gap: 2,
+                alignItems: "center",
+              }}
+            >
+              <SmallP style={{ color: Colors.neutral }}>Following</SmallP>
+              <LargeP style={{ fontWeight: "bold" }}>1</LargeP>
             </View>
           </View>
-          <View>
-            <P style={{ fontWeight: "bold", marginBottom: 10 }}>Chef Abidin</P>
-            <SmallP>
-              Private Chef That Passionate about food and life 🥘🍲🍝🍱
-            </SmallP>
-          </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+        <View>
+          <P style={{ fontWeight: "bold", marginBottom: 10 }}>
+            {user.username}
+          </P>
+          <SmallP>
+            Private Chef That Passionate about food and life 🥘🍲🍝🍱
+          </SmallP>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
