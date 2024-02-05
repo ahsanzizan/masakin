@@ -1,11 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { LargeP, P, SmallP } from "../../components/Text";
 import MoreIcon from "../../components/icons/MoreIcon";
 import Colors from "../../constants/Colors";

@@ -9,7 +9,7 @@ import { LoginResponse, useSession } from "../lib/auth";
 import { ApiResponse, fetchApi, isSuccess } from "../utils/api";
 import dimensions from "../utils/dimensions";
 
-export default function RegistrationPage() {
+export default function Register() {
   const { login } = useSession();
   const [credentials, setCredentials] = useState<{
     username: string;

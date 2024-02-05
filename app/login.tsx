@@ -9,7 +9,7 @@ import { LoginResponse, useSession } from "../lib/auth";
 import { ApiResponse } from "../utils/api";
 import dimensions from "../utils/dimensions";
 
-export default function LoginPage() {
+export default function Login() {
   const { login, loggedIn } = useSession();
   const router = useRouter();
   const [username, setUsername] = useState("");

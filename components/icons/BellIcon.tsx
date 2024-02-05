@@ -3,10 +3,10 @@ import { Path, Svg } from "react-native-svg";
 export default function BellIcon({
   color,
   fill,
-}: {
+}: Readonly<{
   color?: string;
   fill?: string;
-}) {
+}>) {
   return (
     <Svg width="24" height="24" viewBox="0 0 24 24" fill={fill ?? "none"}>
       <Path

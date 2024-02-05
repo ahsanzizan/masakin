@@ -1,11 +1,9 @@
 import { router } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import {
   Image,
-  SafeAreaView,
   ScrollView,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import { LargeP, SmallP } from "../../components/Text";
 import FilterIcon from "../../components/icons/FilterIcon";

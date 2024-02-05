@@ -1,6 +1,6 @@
 import { Path, Svg } from "react-native-svg";
 
-export default function PlusIcon({ color }: { color?: string }) {
+export default function PlusIcon({ color }: Readonly<{ color?: string }>) {
   return (
     <Svg width="22" height="22" viewBox="0 0 22 22" fill="none">
       <Path
