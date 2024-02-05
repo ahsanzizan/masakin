@@ -1,5 +1,5 @@
 import { StyleProp, TextInput, TextStyle, View } from "react-native";
-import Colors from "../constants/Colors";
+import Colors from "@constants/Colors";
 import SearchIcon from "./icons/SearchIcon";
 
 interface InputFieldProps {

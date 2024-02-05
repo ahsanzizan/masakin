@@ -1,9 +1,9 @@
 import { router } from "expo-router";
 import { Image, SafeAreaView, View } from "react-native";
-import { PrimaryButton } from "../components/Button";
-import { H1, LargeP, P } from "../components/Text";
-import ArrowIcon from "../components/icons/ArrowIcon";
-import Colors from "../constants/Colors";
+import { PrimaryButton } from "@components/Button";
+import { H1, LargeP, P } from "@components/Text";
+import ArrowIcon from "@components/icons/ArrowIcon";
+import Colors from "@constants/Colors";
 
 export default function OnBoarding() {
   return (
@@ -24,7 +24,7 @@ export default function OnBoarding() {
         }}
       >
         <Image
-          source={require("../assets/images/icon.png")}
+          source={require("@assets/images/icon.png")}
           style={{ width: 80, height: 80, marginBottom: 14 }}
         />
         <LargeP style={{ fontWeight: "bold" }} isDark>

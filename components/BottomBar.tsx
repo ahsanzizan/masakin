@@ -1,6 +1,6 @@
 import { router, usePathname } from "expo-router";
 import { TouchableOpacity, View } from "react-native";
-import Colors from "../constants/Colors";
+import Colors from "@constants/Colors";
 import BellIcon from "./icons/BellIcon";
 import BookmarkIcon from "./icons/BookmarkIcon";
 import HomeIcon from "./icons/HomeIcon";

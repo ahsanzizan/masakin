@@ -1,16 +1,11 @@
 import { router } from "expo-router";
-import {
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  View
-} from "react-native";
-import { LargeP, SmallP } from "../../components/Text";
-import FilterIcon from "../../components/icons/FilterIcon";
-import SearchIcon from "../../components/icons/SearchIcon";
-import Colors from "../../constants/Colors";
-import { useSession } from "../../lib/auth";
-import dimensions from "../../utils/dimensions";
+import { Image, ScrollView, TouchableOpacity, View } from "react-native";
+import { LargeP, SmallP } from "@components/Text";
+import FilterIcon from "@components/icons/FilterIcon";
+import SearchIcon from "@components/icons/SearchIcon";
+import Colors from "@constants/Colors";
+import { useSession } from "@lib/auth";
+import dimensions from "@utils/dimensions";
 
 export default function Home() {
   const { user } = useSession();
@@ -44,7 +39,7 @@ export default function Home() {
                 ? {
                     uri: user.avatar,
                   }
-                : require("../../assets/images/profile_picture_placeholder.jpg")
+                : require("@assets/images/profile_picture_placeholder.jpg")
             }
             style={{ width: 40, height: 40, borderRadius: 8 }}
           />

@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from "react-native";
-import Colors from "../constants/Colors";
+import Colors from "@constants/Colors";
 
 interface ButtonProps {
   children: ReactNode;

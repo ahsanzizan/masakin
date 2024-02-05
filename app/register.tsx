@@ -1,13 +1,13 @@
 import { router } from "expo-router";
 import { useState } from "react";
 import { Alert, SafeAreaView, ScrollView, StatusBar, View } from "react-native";
-import { PrimaryButton, ReversedPrimaryButton } from "../components/Button";
-import { InputField } from "../components/Input";
-import { LargeP, P, SmallP } from "../components/Text";
-import Colors from "../constants/Colors";
-import { LoginResponse, useSession } from "../lib/auth";
-import { ApiResponse, fetchApi, isSuccess } from "../utils/api";
-import dimensions from "../utils/dimensions";
+import { PrimaryButton, ReversedPrimaryButton } from "@components/Button";
+import { InputField } from "@components/Input";
+import { LargeP, P, SmallP } from "@components/Text";
+import Colors from "@constants/Colors";
+import { LoginResponse, useSession } from "@lib/auth";
+import { ApiResponse, fetchApi, isSuccess } from "@utils/api";
+import dimensions from "@utils/dimensions";
 
 export default function Register() {
   const { login } = useSession();

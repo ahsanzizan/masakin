@@ -1,7 +1,7 @@
 import { Redirect } from "expo-router";
-import { useSession } from "../lib/auth";
+import { useSession } from "@lib/auth";
 import { useEffect, useState } from "react";
-import { getSecureItem, setSecureItem } from "../utils/secureStoreManager";
+import { getSecureItem, setSecureItem } from "@utils/secureStoreManager";
 import OnBoarding from "./onboarding";
 
 export default function Root() {

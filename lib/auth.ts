@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { AuthUser } from "../types/auth";
-import { fetchApi, isSuccess } from "../utils/api";
+import { fetchApi, isSuccess } from "@utils/api";
 import {
   clearSecureItems,
   getSecureItem,
   setSecureItem,
-} from "../utils/secureStoreManager";
+} from "@utils/secureStoreManager";
 import { router } from "expo-router";
 
 export type LoginResponse = {

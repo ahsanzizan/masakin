@@ -1,9 +1,9 @@
 import { Image, ScrollView, TouchableOpacity, View } from "react-native";
-import { LargeP, P, SmallP } from "../../components/Text";
-import MoreIcon from "../../components/icons/MoreIcon";
-import Colors from "../../constants/Colors";
-import { useSession } from "../../lib/auth";
-import dimensions from "../../utils/dimensions";
+import { LargeP, P, SmallP } from "@components/Text";
+import MoreIcon from "@components/icons/MoreIcon";
+import Colors from "@constants/Colors";
+import { useSession } from "@lib/auth";
+import dimensions from "@utils/dimensions";
 
 export default function Profile() {
   const { user } = useSession();
@@ -45,7 +45,7 @@ export default function Profile() {
                 ? {
                     uri: user.avatar,
                   }
-                : require("../../assets/images/profile_picture_placeholder.jpg")
+                : require("@assets/images/profile_picture_placeholder.jpg")
             }
             style={{ width: 84, height: 84, borderRadius: 100 }}
           />

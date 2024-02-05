@@ -1,8 +1,8 @@
-import { Redirect, Slot, Stack } from "expo-router";
-import { useSession } from "../../lib/auth";
+import { Redirect, Slot } from "expo-router";
 import { SafeAreaView, StatusBar, View } from "react-native";
-import Colors from "../../constants/Colors";
-import BottomBar from "../../components/BottomBar";
+import BottomBar from "@components/BottomBar";
+import Colors from "@constants/Colors";
+import { useSession } from "@lib/auth";
 
 export default function Protected() {
   const { loggedIn } = useSession();
