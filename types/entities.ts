@@ -10,13 +10,30 @@ export interface PaginatedResult<T> {
   };
 }
 
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  createdAt: Date;
+  bio: string | null;
+  avatar: string | null;
+  password: string;
+}
+
 export interface UserWithoutPassword {
   id: string;
   username: string;
   email: string;
   createdAt: Date;
   bio: string | null;
-  avatar: string;
+  avatar: string | null;
+}
+
+export interface Ingredient {
+  name: string;
+  amount: number;
+  unit: string;
+  unitShort: string;
 }
 
 export interface Recipe {
@@ -37,6 +54,7 @@ export interface Recipe {
   createdAt: Date;
   updatedAt: Date | null;
   authorId: string;
+  likesCount: number;
 }
 
 export interface Followership {

@@ -1,11 +1,13 @@
-import { router } from "expo-router";
-import { Image, ScrollView, TouchableOpacity, View } from "react-native";
+import TrendingRecipes from "@components/RecipeDisplays/TrendingRecipes";
 import { LargeP, SmallP } from "@components/Text";
 import FilterIcon from "@components/icons/FilterIcon";
 import SearchIcon from "@components/icons/SearchIcon";
 import Colors from "@constants/Colors";
 import { useSession } from "@lib/auth";
 import dimensions from "@utils/dimensions";
+import { recipesSeeder } from "@utils/seeders/recipes";
+import { router } from "expo-router";
+import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 
 export default function Home() {
   const { user } = useSession();
@@ -114,6 +116,7 @@ export default function Home() {
             </SmallP>
           </TouchableOpacity>
         </View>
+        <TrendingRecipes recipes={recipesSeeder} />
       </View>
     </ScrollView>
   );

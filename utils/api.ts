@@ -1,4 +1,4 @@
-import { apiUrl } from "@config/index";
+import { apiUrl } from "@config/index"; // Ignored config/index
 import { getSecureItem } from "./secureStoreManager";
 
 export interface ApiResponse<T> {
