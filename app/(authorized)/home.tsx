@@ -109,7 +109,7 @@ export default function Home() {
             paddingVertical: 12,
           }}
         >
-          <LargeP style={{ fontWeight: "bold" }}>Trending Now🔥</LargeP>
+          <LargeP style={{ fontWeight: "bold" }}>Trending Now</LargeP>
           <TouchableOpacity>
             <SmallP style={{ color: Colors.primary, fontWeight: "bold" }}>
               See All
