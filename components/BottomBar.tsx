@@ -1,13 +1,82 @@
-import { router, usePathname } from "expo-router";
-import { TouchableOpacity, View } from "react-native";
 import Colors from "@constants/Colors";
+import { AllRoutes, router, usePathname } from "expo-router";
+import { FC } from "react";
+import { GestureResponderEvent, TouchableOpacity, View } from "react-native";
 import BellIcon from "./icons/BellIcon";
 import BookmarkIcon from "./icons/BookmarkIcon";
 import HomeIcon from "./icons/HomeIcon";
-import PlusIcon from "./icons/PlusIcon";
 import ProfileIcon from "./icons/ProfileIcon";
 
+const bottomBarItems = [
+  { route: "/home", Icon: HomeIcon },
+  { route: "/bookmark", Icon: BookmarkIcon },
+  {
+    route: "",
+    Icon: BookmarkIcon,
+    isMiddle: true,
+    onPress: (event: GestureResponderEvent) => {
+      // TODO: Implement this
+    },
+  },
+  { route: "/notification", Icon: BellIcon },
+  { route: "/profile", Icon: ProfileIcon },
+];
+
+const BottomBarItem = ({
+  route,
+  Icon,
+  activePath,
+  isMiddle,
+  onPress,
+}: {
+  route: string;
+  Icon: FC<
+    Readonly<{
+      color?: string;
+      fill?: string;
+    }>
+  >;
+  activePath: string;
+  isMiddle?: boolean;
+  onPress?: (event: GestureResponderEvent) => void;
+}) => {
+  if (isMiddle) {
+    return (
+      <TouchableOpacity
+        onPress={onPress}
+        style={{
+          padding: 16,
+          borderRadius: 32,
+          backgroundColor: Colors.primary,
+        }}
+      >
+        <Icon />
+      </TouchableOpacity>
+    );
+  }
+
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        router.push(route as AllRoutes);
+      }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 8,
+      }}
+    >
+      <Icon
+        fill={activePath === route ? Colors.primary : undefined}
+        color={activePath === route ? Colors.primary : undefined}
+      />
+    </TouchableOpacity>
+  );
+};
+
 export default function BottomBar() {
+  // Get the current active page with the pathname
   const pathname = usePathname();
   const active = pathname.split("/");
 
@@ -19,7 +88,7 @@ export default function BottomBar() {
         paddingHorizontal: 24,
         paddingVertical: 12,
       }}
-      className="fixed inset-x-0 bottom-0 z-10"
+      className="fixed inset-x-0 bottom-0 z-10" // Use the fixed class because I don't know how to do that with native style
     >
       <View
         style={{
@@ -29,64 +98,16 @@ export default function BottomBar() {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/home");
-          }}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 8,
-          }}
-        >
-          <HomeIcon
-            fill={active[1] === "home" ? Colors.primary : undefined}
-            color={active[1] === "home" ? Colors.primary : undefined}
+        {bottomBarItems.map((item) => (
+          <BottomBarItem
+            key={item.route}
+            route={item.route}
+            Icon={item.Icon}
+            activePath={active[1]}
+            isMiddle={item.isMiddle}
+            onPress={item.onPress}
           />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/bookmark");
-          }}
-        >
-          <BookmarkIcon
-            fill={active[1] === "bookmark" ? Colors.primary : undefined}
-            color={active[1] === "bookmark" ? Colors.primary : undefined}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            // TODO: Implement this
-          }}
-          style={{
-            padding: 16,
-            borderRadius: 32,
-            backgroundColor: Colors.primary,
-          }}
-        >
-          <PlusIcon />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/notification");
-          }}
-        >
-          <BellIcon
-            fill={active[1] === "notification" ? Colors.primary : undefined}
-            color={active[1] === "notification" ? Colors.primary : undefined}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/profile");
-          }}
-        >
-          <ProfileIcon
-            fill={active[1] === "profile" ? Colors.primary : undefined}
-            color={active[1] === "profile" ? Colors.primary : undefined}
-          />
-        </TouchableOpacity>
+        ))}
       </View>
     </View>
   );
