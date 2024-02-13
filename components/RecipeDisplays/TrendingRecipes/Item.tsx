@@ -2,13 +2,14 @@ import { P, SmallP } from "@components/Text";
 import BookmarkIcon from "@components/icons/BookmarkIcon";
 import StarIcon from "@components/icons/StarIcon";
 import Colors from "@constants/Colors";
+import { numberFormatter } from "@utils/formatter";
+import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 import { RecipeWithAuthor } from "../../../types/relations";
-import { numberFormatter } from "@utils/formatter";
 
-export default function TrendingRecipeItem({
+const TrendingRecipeItem: React.FC<Readonly<{ recipe: RecipeWithAuthor }>> = ({
   recipe,
-}: Readonly<{ recipe: RecipeWithAuthor }>) {
+}) => {
   return (
     <View style={{ maxWidth: 280 }}>
       <View style={{ width: 280, height: 180, marginBottom: 12 }}>
@@ -92,4 +93,6 @@ export default function TrendingRecipeItem({
       </View>
     </View>
   );
-}
+};
+
+export default React.memo(TrendingRecipeItem);

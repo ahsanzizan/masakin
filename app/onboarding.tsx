@@ -1,9 +1,9 @@
-import { router } from "expo-router";
-import { Image, SafeAreaView, View } from "react-native";
 import { PrimaryButton } from "@components/Button";
 import { H1, LargeP, P } from "@components/Text";
 import ArrowIcon from "@components/icons/ArrowIcon";
 import Colors from "@constants/Colors";
+import { router } from "expo-router";
+import { Image, SafeAreaView, View } from "react-native";
 
 export default function OnBoarding() {
   return (

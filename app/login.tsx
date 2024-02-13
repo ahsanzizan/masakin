@@ -1,6 +1,3 @@
-import { Redirect, useRouter } from "expo-router";
-import { useState } from "react";
-import { Alert, SafeAreaView, ScrollView, StatusBar, View } from "react-native";
 import { PrimaryButton, ReversedPrimaryButton } from "@components/Button";
 import { InputField } from "@components/Input";
 import { H2, LargeP, P, SmallP } from "@components/Text";
@@ -8,6 +5,9 @@ import Colors from "@constants/Colors";
 import { LoginResponse, useSession } from "@lib/auth";
 import { ApiResponse } from "@utils/api";
 import dimensions from "@utils/dimensions";
+import { Redirect, useRouter } from "expo-router";
+import { useState } from "react";
+import { Alert, SafeAreaView, ScrollView, StatusBar, View } from "react-native";
 
 export default function Login() {
   const { login, loggedIn } = useSession();

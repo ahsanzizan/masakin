@@ -1,22 +1,71 @@
-import { router } from "expo-router";
-import { useState } from "react";
-import { Alert, SafeAreaView, ScrollView, StatusBar, View } from "react-native";
 import { PrimaryButton, ReversedPrimaryButton } from "@components/Button";
 import { InputField } from "@components/Input";
 import { LargeP, P, SmallP } from "@components/Text";
 import Colors from "@constants/Colors";
-import { LoginResponse, useSession } from "@lib/auth";
-import { ApiResponse, fetchApi, isSuccess } from "@utils/api";
+import { useSession } from "@lib/auth";
+import { fetchApi, isSuccess } from "@utils/api";
 import dimensions from "@utils/dimensions";
+import { router } from "expo-router";
+import { useState } from "react";
+import {
+  Alert,
+  GestureResponderEvent,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  View,
+} from "react-native";
 
 export default function Register() {
   const { login } = useSession();
-  const [credentials, setCredentials] = useState<{
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }>({ username: "", email: "", password: "", confirmPassword: "" });
+  const [credentials, setCredentials] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleSignUp = async (e: GestureResponderEvent) => {
+    const { username, email, password, confirmPassword } = credentials;
+
+    if (!username || !email || !password || !confirmPassword) {
+      return Alert.alert("Whoopsy...", "Please fill in all fields");
+    }
+
+    if (password !== confirmPassword) {
+      return Alert.alert(
+        "Whoopsy...",
+        "The password and confirm password does not match"
+      );
+    }
+
+    try {
+      const registerResponse = await fetchApi("/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      if (!isSuccess(registerResponse)) {
+        return Alert.alert(
+          "Registration failed",
+          registerResponse.message.toString()
+        );
+      }
+
+      // After successful registration, we'll try to log the user in
+      const loginResponse = await login(username, password);
+
+      if (loginResponse.statusCode !== 200) {
+        return Alert.alert("Login failed", loginResponse.message.toString());
+      }
+
+      // Redirect to the home page
+      router.push("/home");
+    } catch (error) {
+      Alert.alert("Error", "Something went wrong. Please try again.");
+    }
+  };
 
   return (
     <SafeAreaView
@@ -35,6 +84,7 @@ export default function Register() {
         }}
         contentContainerStyle={{ paddingHorizontal: 30, paddingVertical: 94 }}
       >
+        {/* Title and description */}
         <View
           style={{
             flex: 1,
@@ -49,6 +99,8 @@ export default function Register() {
             Let’s help you set up your account, it won’t take that long.
           </SmallP>
         </View>
+
+        {/* Credentials input fields */}
         <View
           style={{
             flex: 1,
@@ -100,62 +152,9 @@ export default function Register() {
             />
           </View>
         </View>
-        <PrimaryButton
-          style={{ marginBottom: 20 }}
-          onPress={async (e) => {
-            e.preventDefault();
 
-            const { username, email, password, confirmPassword } = credentials;
-
-            if (!username)
-              return Alert.alert(
-                "Whoopsy...",
-                "Please fill in the username field"
-              );
-
-            if (!email)
-              return Alert.alert(
-                "Whoopsy...",
-                "Please fill in the email field"
-              );
-
-            if (!password)
-              return Alert.alert(
-                "Whoopsy...",
-                "Please fill in the password field"
-              );
-
-            if (password !== confirmPassword)
-              return Alert.alert(
-                "Whoopsy...",
-                "The password and confirm password field does not match"
-              );
-
-            const tryRegister = await fetchApi<null>("/auth/register", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ username, email, password }),
-            });
-            if (!isSuccess(tryRegister))
-              return Alert.alert(
-                "Registration Failed!",
-                tryRegister.message.toString()
-              );
-
-            // Sign in the user right after they signed up
-            let tryLogin: ApiResponse<LoginResponse>;
-
-            try {
-              tryLogin = await login(username, password);
-            } catch (e) {
-              return Alert.alert("Login Failed!", "Something wrong occured");
-            }
-
-            if (tryLogin.statusCode !== 200)
-              return Alert.alert("Login Failed!", tryLogin.message);
-            else router.push("/home");
-          }}
-        >
+        {/* Register button */}
+        <PrimaryButton style={{ marginBottom: 20 }} onPress={handleSignUp}>
           <P
             style={{
               textAlign: "center",
@@ -166,6 +165,8 @@ export default function Register() {
             Sign Up
           </P>
         </PrimaryButton>
+
+        {/* OR separator */}
         <View
           style={{
             flexDirection: "row",
@@ -181,6 +182,8 @@ export default function Register() {
             style={{ width: "40%", height: 1, backgroundColor: Colors.black }}
           />
         </View>
+
+        {/* Sign in button */}
         <ReversedPrimaryButton
           style={{ marginTop: 20 }}
           onPress={() => router.push("/login")}

@@ -1,95 +1,60 @@
-import { Text, TextStyle } from "react-native";
 import Colors from "@constants/Colors";
-import { ReactNode } from "react";
+import React from "react";
+import { Text, TextStyle } from "react-native";
 
+// Universal 'Text' component props
 interface TextProps {
-  children: ReactNode;
+  children: React.ReactNode;
   style?: TextStyle;
   isDark?: boolean;
 }
 
-export function H1({ children, style, isDark }: Readonly<TextProps>) {
-  return (
-    <Text
-      style={{
-        color: isDark ? Colors.dark.text : Colors.light.text,
-        fontWeight: "bold",
-        fontSize: 42,
-        ...style,
-      }}
-    >
-      {children}
-    </Text>
-  );
+interface TextTemplateProps {
+  children: React.ReactNode;
+  style?: TextStyle;
+  isDark?: boolean;
+  fontSize: number;
 }
 
-export function H2({ children, style, isDark }: Readonly<TextProps>) {
+const TextComponent: React.FC<TextTemplateProps> = ({
+  children,
+  style,
+  isDark,
+  fontSize,
+}) => {
   return (
     <Text
       style={{
         color: isDark ? Colors.dark.text : Colors.light.text,
-        fontWeight: "bold",
-        fontSize: 30,
+        fontSize,
         ...style,
       }}
     >
       {children}
     </Text>
   );
-}
+};
 
-export function LargeP({ children, style, isDark }: Readonly<TextProps>) {
-  return (
-    <Text
-      style={{
-        color: isDark ? Colors.dark.text : Colors.light.text,
-        fontSize: 20,
-        ...style,
-      }}
-    >
-      {children}
-    </Text>
-  );
-}
+export const H1 = (props: TextProps) => (
+  <TextComponent {...props} fontSize={42} />
+);
 
-export function MediumP({ children, style, isDark }: Readonly<TextProps>) {
-  return (
-    <Text
-      style={{
-        color: isDark ? Colors.dark.text : Colors.light.text,
-        fontSize: 18,
-        ...style,
-      }}
-    >
-      {children}
-    </Text>
-  );
-}
+export const H2 = (props: TextProps) => (
+  <TextComponent {...props} fontSize={30} />
+);
 
-export function P({ children, style, isDark }: Readonly<TextProps>) {
-  return (
-    <Text
-      style={{
-        color: isDark ? Colors.dark.text : Colors.light.text,
-        fontSize: 16,
-        ...style,
-      }}
-    >
-      {children}
-    </Text>
-  );
-}
+export const LargeP = (props: TextProps) => (
+  <TextComponent {...props} fontSize={20} />
+);
 
-export function SmallP({ children, style, isDark }: Readonly<TextProps>) {
-  return (
-    <Text
-      style={{
-        color: isDark ? Colors.dark.text : Colors.light.text,
-        fontSize: 14,
-        ...style,
-      }}
-    >
-      {children}
-    </Text>
-  );
-}
+export const MediumP = (props: TextProps) => (
+  <TextComponent {...props} fontSize={18} />
+);
+
+export const P = (props: TextProps) => (
+  <TextComponent {...props} fontSize={16} />
+);
+
+export const SmallP = (props: TextProps) => (
+  <TextComponent {...props} fontSize={14} />
+);

@@ -40,6 +40,8 @@ const BottomBarItem = ({
   isMiddle?: boolean;
   onPress?: (event: GestureResponderEvent) => void;
 }) => {
+  const isActive = activePath === route;
+
   if (isMiddle) {
     return (
       <TouchableOpacity
@@ -68,15 +70,15 @@ const BottomBarItem = ({
       }}
     >
       <Icon
-        fill={activePath === route ? Colors.primary : undefined}
-        color={activePath === route ? Colors.primary : undefined}
+        fill={isActive ? Colors.primary : undefined}
+        color={isActive ? Colors.primary : undefined}
       />
     </TouchableOpacity>
   );
 };
 
 export default function BottomBar() {
-  // Get the current active page with the pathname
+  // Get the current active page using the pathname
   const pathname = usePathname();
   const active = pathname.split("/");
 

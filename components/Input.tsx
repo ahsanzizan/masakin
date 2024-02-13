@@ -1,7 +1,9 @@
-import { StyleProp, TextInput, TextStyle, View } from "react-native";
 import Colors from "@constants/Colors";
+import React from "react";
+import { StyleProp, TextInput, TextStyle, View } from "react-native";
 import SearchIcon from "./icons/SearchIcon";
 
+// Universal 'InputField` component props
 interface InputFieldProps {
   style?: StyleProp<TextStyle>;
   placeholder?: string;
@@ -10,13 +12,13 @@ interface InputFieldProps {
   isSecure?: boolean;
 }
 
-export function InputField({
+export const InputField: React.FC<Readonly<InputFieldProps>> = ({
   style,
   placeholder,
   onChangeText,
   value,
   isSecure,
-}: Readonly<InputFieldProps>) {
+}) => {
   return (
     <TextInput
       style={{
@@ -34,14 +36,14 @@ export function InputField({
       secureTextEntry={isSecure}
     />
   );
-}
+};
 
-export function SearchField({
+export const SearchField: React.FC<Readonly<InputFieldProps>> = ({
   style,
   placeholder,
   onChangeText,
   value,
-}: Readonly<InputFieldProps>) {
+}) => {
   return (
     <View
       style={{
@@ -75,4 +77,4 @@ export function SearchField({
       />
     </View>
   );
-}
+};

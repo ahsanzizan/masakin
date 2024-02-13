@@ -1,11 +1,12 @@
-import { ReactNode } from "react";
+import Colors from "@constants/Colors";
+import React, { ReactNode } from "react";
 import {
   GestureResponderEvent,
   TouchableOpacity,
   ViewStyle,
 } from "react-native";
-import Colors from "@constants/Colors";
 
+// Universal 'Bottom' component props
 interface ButtonProps {
   children: ReactNode;
   isDark?: boolean;
@@ -13,12 +14,11 @@ interface ButtonProps {
   onPress?: (event: GestureResponderEvent) => void;
 }
 
-export function PrimaryButton({
+export const PrimaryButton: React.FC<Readonly<ButtonProps>> = ({
   children,
-  isDark,
   style,
   onPress,
-}: Readonly<ButtonProps>) {
+}) => {
   return (
     <TouchableOpacity
       style={{
@@ -37,14 +37,13 @@ export function PrimaryButton({
       {children}
     </TouchableOpacity>
   );
-}
+};
 
-export function ReversedPrimaryButton({
+export const ReversedPrimaryButton: React.FC<Readonly<ButtonProps>> = ({
   children,
-  isDark,
   style,
   onPress,
-}: Readonly<ButtonProps>) {
+}) => {
   return (
     <TouchableOpacity
       style={{
@@ -64,4 +63,4 @@ export function ReversedPrimaryButton({
       {children}
     </TouchableOpacity>
   );
-}
+};
