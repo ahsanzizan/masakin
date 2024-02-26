@@ -1,5 +1,6 @@
 import { PrimaryButton, ReversedPrimaryButton } from "@components/Button";
 import { InputField } from "@components/Input";
+import LoadingModal from "@components/LoadingModal";
 import { H2, LargeP, P, SmallP } from "@components/Text";
 import Colors from "@constants/Colors";
 import { LoginResponse, useSession } from "@lib/auth";
@@ -7,15 +8,56 @@ import { ApiResponse } from "@utils/api";
 import dimensions from "@utils/dimensions";
 import { Redirect, useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, SafeAreaView, ScrollView, StatusBar, View } from "react-native";
+import {
+  Alert,
+  GestureResponderEvent,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  View,
+} from "react-native";
 
 export default function Login() {
+  const [loading, setLoading] = useState(false);
   const { login, loggedIn } = useSession();
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   if (loggedIn) return <Redirect href={"/home"} />;
+
+  const handleSignIn = async (e: GestureResponderEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!username || !password) {
+      setLoading(false);
+      return Alert.alert(
+        "Whoopsy...",
+        !username
+          ? "Please fill in the username field"
+          : "Please fill in the password field"
+      );
+    }
+
+    try {
+      const tryLogin = await login(username, password);
+
+      if (tryLogin.statusCode !== 200) {
+        setLoading(false);
+        return Alert.alert("Login Failed!", tryLogin.message);
+      } else {
+        setLoading(false);
+        router.push("/home");
+      }
+    } catch (error) {
+      setLoading(false);
+      return Alert.alert(
+        "Login Failed!",
+        "Something went wrong. Please try again."
+      );
+    }
+  };
 
   return (
     <SafeAreaView
@@ -26,6 +68,7 @@ export default function Login() {
         backgroundColor: Colors.light.background,
       }}
     >
+      <LoadingModal isActive={loading} />
       <StatusBar />
       <ScrollView
         style={{
@@ -70,35 +113,7 @@ export default function Login() {
             />
           </View>
         </View>
-        <PrimaryButton
-          style={{ marginBottom: 20 }}
-          onPress={async (e) => {
-            e.preventDefault();
-            if (!username)
-              return Alert.alert(
-                "Whoopsy...",
-                "Please fill in the username field"
-              );
-
-            if (!password)
-              return Alert.alert(
-                "Whoopsy...",
-                "Please fill in the password field"
-              );
-
-            let tryLogin: ApiResponse<LoginResponse>;
-
-            try {
-              tryLogin = await login(username, password);
-            } catch (e) {
-              return Alert.alert("Login Failed!", "Something wrong occured");
-            }
-
-            if (tryLogin.statusCode !== 200)
-              return Alert.alert("Login Failed!", tryLogin.message);
-            else router.push("/home");
-          }}
-        >
+        <PrimaryButton style={{ marginBottom: 20 }} onPress={handleSignIn}>
           <P
             style={{
               textAlign: "center",

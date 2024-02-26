@@ -18,6 +18,7 @@ import {
 
 export default function Register() {
   const { login } = useSession();
+  const [loading, setLoading] = useState(false);
   const [credentials, setCredentials] = useState({
     username: "",
     email: "",
@@ -26,13 +27,18 @@ export default function Register() {
   });
 
   const handleSignUp = async (e: GestureResponderEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
     const { username, email, password, confirmPassword } = credentials;
 
     if (!username || !email || !password || !confirmPassword) {
+      setLoading(false);
       return Alert.alert("Whoopsy...", "Please fill in all fields");
     }
 
     if (password !== confirmPassword) {
+      setLoading(false);
       return Alert.alert(
         "Whoopsy...",
         "The password and confirm password does not match"
@@ -47,6 +53,7 @@ export default function Register() {
       });
 
       if (!isSuccess(registerResponse)) {
+        setLoading(false);
         return Alert.alert(
           "Registration failed",
           registerResponse.message.toString()
@@ -57,12 +64,15 @@ export default function Register() {
       const loginResponse = await login(username, password);
 
       if (loginResponse.statusCode !== 200) {
+        setLoading(false);
         return Alert.alert("Login failed", loginResponse.message.toString());
       }
 
       // Redirect to the home page
+      setLoading(false);
       router.push("/home");
     } catch (error) {
+      setLoading(false);
       Alert.alert("Error", "Something went wrong. Please try again.");
     }
   };
