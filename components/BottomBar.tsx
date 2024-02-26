@@ -6,13 +6,14 @@ import BellIcon from "./icons/BellIcon";
 import BookmarkIcon from "./icons/BookmarkIcon";
 import HomeIcon from "./icons/HomeIcon";
 import ProfileIcon from "./icons/ProfileIcon";
+import PlusIcon from "./icons/PlusIcon";
 
 const bottomBarItems = [
   { route: "/home", Icon: HomeIcon },
   { route: "/bookmark", Icon: BookmarkIcon },
   {
     route: "",
-    Icon: BookmarkIcon,
+    Icon: PlusIcon,
     isMiddle: true,
     onPress: (event: GestureResponderEvent) => {
       // TODO: Implement this

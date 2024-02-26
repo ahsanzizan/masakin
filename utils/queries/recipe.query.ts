@@ -17,7 +17,7 @@ export const getRecipes = async (page?: number, search?: string) => {
 };
 
 export const getRecipeById = async (id: string) => {
-  const recipe = await fetchApiWithAuth<Recipe>(`recipes/${id}`);
+  const recipe = await fetchApiWithAuth<Recipe>(`/recipes/${id}`);
   if (!isSuccess(recipe)) {
     throw new Error(
       `Fetch recipe responded with status ${recipe.statusCode}${
