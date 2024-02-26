@@ -1,5 +1,6 @@
 import { PrimaryButton, ReversedPrimaryButton } from "@components/Button";
 import { InputField } from "@components/Input";
+import LoadingModal from "@components/LoadingModal";
 import { LargeP, P, SmallP } from "@components/Text";
 import Colors from "@constants/Colors";
 import { useSession } from "@lib/auth";
@@ -86,6 +87,7 @@ export default function Register() {
         backgroundColor: Colors.light.background,
       }}
     >
+      <LoadingModal isActive={loading} />
       <StatusBar />
       <ScrollView
         style={{
