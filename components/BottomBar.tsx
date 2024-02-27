@@ -41,7 +41,7 @@ const BottomBarItem = ({
   isMiddle?: boolean;
   onPress?: (event: GestureResponderEvent) => void;
 }) => {
-  const isActive = activePath === route;
+  const isActive = activePath === route.slice(1);
 
   if (isMiddle) {
     return (
