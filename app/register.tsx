@@ -2,6 +2,7 @@ import { PrimaryButton, ReversedPrimaryButton } from "@components/Button";
 import { InputField } from "@components/Input";
 import LoadingModal from "@components/LoadingModal";
 import { LargeP, P, SmallP } from "@components/Text";
+import Wrapper from "@components/Wrapper";
 import Colors from "@constants/Colors";
 import { useSession } from "@lib/auth";
 import { fetchApi, isSuccess } from "@utils/api";
@@ -89,13 +90,7 @@ export default function Register() {
     >
       <LoadingModal isActive={loading} />
       <StatusBar />
-      <ScrollView
-        style={{
-          flex: 1,
-          width: dimensions.windows.width,
-        }}
-        contentContainerStyle={{ paddingHorizontal: 30, paddingVertical: 94 }}
-      >
+      <Wrapper>
         {/* Title and description */}
         <View
           style={{
@@ -210,7 +205,7 @@ export default function Register() {
             Sign In
           </P>
         </ReversedPrimaryButton>
-      </ScrollView>
+      </Wrapper>
     </SafeAreaView>
   );
 }

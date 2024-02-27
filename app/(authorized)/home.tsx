@@ -1,6 +1,7 @@
 import LoadingModal from "@components/LoadingModal";
 import TrendingRecipes from "@components/RecipeDisplays/TrendingRecipes";
 import { LargeP, SmallP } from "@components/Text";
+import Wrapper from "@components/Wrapper";
 import FilterIcon from "@components/icons/FilterIcon";
 import SearchIcon from "@components/icons/SearchIcon";
 import Colors from "@constants/Colors";
@@ -16,12 +17,7 @@ export default function Home() {
   return (
     <>
       <LoadingModal isActive={user.username === null} />
-      <ScrollView
-        style={{
-          width: dimensions.windows.width,
-        }}
-        contentContainerStyle={{ paddingHorizontal: 30, paddingVertical: 94 }}
-      >
+      <Wrapper>
         <View
           style={{
             flexDirection: "row",
@@ -121,7 +117,7 @@ export default function Home() {
           </View>
           <TrendingRecipes recipes={recipesSeeder} />
         </View>
-      </ScrollView>
+      </Wrapper>
     </>
   );
 }

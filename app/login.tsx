@@ -2,6 +2,7 @@ import { PrimaryButton, ReversedPrimaryButton } from "@components/Button";
 import { InputField } from "@components/Input";
 import LoadingModal from "@components/LoadingModal";
 import { H2, LargeP, P, SmallP } from "@components/Text";
+import Wrapper from "@components/Wrapper";
 import Colors from "@constants/Colors";
 import { useSession } from "@lib/auth";
 import dimensions from "@utils/dimensions";
@@ -69,12 +70,7 @@ export default function Login() {
     >
       <LoadingModal isActive={loading} />
       <StatusBar />
-      <ScrollView
-        style={{
-          width: dimensions.windows.width,
-        }}
-        contentContainerStyle={{ paddingHorizontal: 30, paddingVertical: 94 }}
-      >
+      <Wrapper>
         <View
           style={{
             flex: 1,
@@ -152,7 +148,7 @@ export default function Login() {
             Sign Up
           </P>
         </ReversedPrimaryButton>
-      </ScrollView>
+      </Wrapper>
     </SafeAreaView>
   );
 }

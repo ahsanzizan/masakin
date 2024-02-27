@@ -5,6 +5,7 @@ import Colors from "@constants/Colors";
 import { useSession } from "@lib/auth";
 import dimensions from "@utils/dimensions";
 import LoadingModal from "@components/LoadingModal";
+import Wrapper from "@components/Wrapper";
 
 export default function Profile() {
   const { user } = useSession();
@@ -12,12 +13,7 @@ export default function Profile() {
   return (
     <>
       <LoadingModal isActive={user.username === null} />
-      <ScrollView
-        style={{
-          width: dimensions.windows.width,
-        }}
-        contentContainerStyle={{ paddingHorizontal: 30, paddingVertical: 94 }}
-      >
+      <Wrapper>
         <View
           style={{
             flexDirection: "row",
@@ -96,7 +92,7 @@ export default function Profile() {
             </SmallP>
           </View>
         </View>
-      </ScrollView>
+      </Wrapper>
     </>
   );
 }
