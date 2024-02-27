@@ -72,7 +72,7 @@ const TrendingRecipeItem: React.FC<Readonly<{ recipe: RecipeWithAuthor }>> = ({
             borderRadius: 8,
           }}
         >
-          <SmallP style={{ color: Colors.white }}>{recipe.cookDuration}</SmallP>
+          <SmallP style={{ color: Colors.white }}>{recipe.cookDuration} min</SmallP>
         </View>
       </View>
       <P style={{ fontWeight: "bold", marginBottom: 8 }}>{recipe.title}</P>
