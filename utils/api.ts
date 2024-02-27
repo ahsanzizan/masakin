@@ -1,5 +1,5 @@
 import { apiUrl } from "@config/index"; // Ignored config/index
-import { getSecureItem } from "./secureStoreManager";
+import { getSecureItemSync } from "./secureStoreManager";
 
 export interface ApiResponse<T> {
   message: string;
@@ -26,7 +26,7 @@ export const fetchApiWithAuth = async <T>(
   route: string,
   init?: RequestInit
 ): Promise<ApiResponse<T> | ApiErrorResponse> => {
-  const token = await getSecureItem("token");
+  const token = await getSecureItemSync("token");
   const res = await fetch(apiUrl + route, {
     ...init,
     headers: { ...init?.headers, Authorization: "Bearer " + token },

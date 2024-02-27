@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { AuthUser } from "../types/auth";
 import { fetchApi, isSuccess } from "@utils/api";
 import {
-  clearSecureItems,
-  getSecureItem,
-  setSecureItem,
+  clearSecureItemsSync,
+  getSecureItemSync,
+  setSecureItemSync,
 } from "@utils/secureStoreManager";
 import { router } from "expo-router";
 
@@ -18,7 +18,7 @@ export type LoginResponse = {
 };
 
 export const getAuthInfo = async () => {
-  const getUserInfo = await getSecureItem("userInfo");
+  const getUserInfo = await getSecureItemSync("userInfo");
 
   let user: AuthUser = {
     sub: null,
@@ -32,7 +32,7 @@ export const getAuthInfo = async () => {
     const userInfo = JSON.parse(getUserInfo) as AuthUser;
     user = userInfo;
   } else {
-    setSecureItem("userInfo", JSON.stringify(user));
+    setSecureItemSync("userInfo", JSON.stringify(user));
   }
 
   return user;
@@ -52,8 +52,8 @@ export const useSession = () => {
     const authInfo = await getAuthInfo();
     setUser(() => authInfo);
 
-    const getLoggedIn = await getSecureItem("loggedIn");
-    setLoggedIn(() => Boolean(getLoggedIn));
+    const getLoggedIn = await getSecureItemSync("loggedIn");
+    setLoggedIn(() => getLoggedIn === "true");
   };
 
   useEffect(() => {
@@ -77,9 +77,9 @@ export const useSession = () => {
       );
 
     const { access_token, ...userInfo } = response.result;
-    await setSecureItem("token", access_token);
-    await setSecureItem("userInfo", JSON.stringify({ ...userInfo }));
-    await setSecureItem("loggedIn", "true");
+    await setSecureItemSync("token", access_token);
+    await setSecureItemSync("userInfo", JSON.stringify({ ...userInfo }));
+    await setSecureItemSync("loggedIn", "true");
 
     // Reload the session
     await loadUserInfo();
@@ -88,7 +88,7 @@ export const useSession = () => {
   };
 
   const logout = async () => {
-    await clearSecureItems();
+    await clearSecureItemsSync();
 
     // Reload the session
     await loadUserInfo();

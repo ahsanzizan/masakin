@@ -3,22 +3,29 @@ import * as SecureStore from "expo-secure-store";
 // For type safety purpose
 type Keys = "token" | "firstLaunch" | "userInfo" | "loggedIn";
 
-export const getSecureItem = async (key: Keys) => {
+export const getSecureItem = (key: Keys) => {
+  return SecureStore.getItem(key);
+};
+
+export const getSecureItemSync = async (key: Keys) => {
   return await SecureStore.getItemAsync(key);
 };
 
-export const setSecureItem = async (key: Keys, value: string) => {
+export const setSecureItemSync = async (key: Keys, value: string) => {
   await SecureStore.setItemAsync(key, value);
 };
 
-export const deleteSecureItem = async (key: Keys) => {
+export const deleteSecureItemSync = async (key: Keys) => {
   await SecureStore.deleteItemAsync(key);
 };
 
-export const clearSecureItems = async () => {
-  if ((await getSecureItem("token")) && (await getSecureItem("userInfo"))) {
-    await deleteSecureItem("token");
-    await deleteSecureItem("userInfo");
-    await deleteSecureItem("loggedIn");
+export const clearSecureItemsSync = async () => {
+  if (
+    (await getSecureItemSync("token")) &&
+    (await getSecureItemSync("userInfo"))
+  ) {
+    await deleteSecureItemSync("token");
+    await deleteSecureItemSync("userInfo");
+    await deleteSecureItemSync("loggedIn");
   }
 };

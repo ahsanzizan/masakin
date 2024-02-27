@@ -1,7 +1,9 @@
 import Colors from "@constants/Colors";
 import { ActivityIndicator } from "react-native";
 
-export default function LoadingModal({ isActive }: { isActive?: boolean }) {
+export default function LoadingModal({
+  isActive,
+}: Readonly<{ isActive?: boolean }>) {
   return (
     <ActivityIndicator
       animating={isActive}

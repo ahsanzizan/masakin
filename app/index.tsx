@@ -1,7 +1,7 @@
 import { Redirect } from "expo-router";
 import { useSession } from "@lib/auth";
 import { useEffect, useState } from "react";
-import { getSecureItem, setSecureItem } from "@utils/secureStoreManager";
+import { getSecureItemSync, setSecureItemSync } from "@utils/secureStoreManager";
 import OnBoarding from "./onboarding";
 
 export default function Root() {
@@ -10,11 +10,11 @@ export default function Root() {
 
   useEffect(() => {
     const init = async () => {
-      const getFirstLaunch = await getSecureItem("firstLaunch");
+      const getFirstLaunch = await getSecureItemSync("firstLaunch");
 
       if (getFirstLaunch === null) {
         setFirstLaunch(true);
-        setSecureItem("firstLaunch", "false");
+        setSecureItemSync("firstLaunch", "false");
       } else {
         setFirstLaunch(false);
       }
