@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AuthUser } from "../types/auth";
 import { fetchApi, isSuccess } from "@utils/api";
 import {
-  clearSecureItemsSync,
+  clearAuthInfo,
   getSecureItemSync,
   setSecureItemSync,
 } from "@utils/secureStoreManager";
@@ -88,7 +88,7 @@ export const useSession = () => {
   };
 
   const logout = async () => {
-    await clearSecureItemsSync();
+    await clearAuthInfo();
 
     // Reload the session
     await loadUserInfo();

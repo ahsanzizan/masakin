@@ -19,7 +19,7 @@ export const deleteSecureItemSync = async (key: Keys) => {
   await SecureStore.deleteItemAsync(key);
 };
 
-export const clearSecureItemsSync = async () => {
+export const clearAuthInfo = async () => {
   await deleteSecureItemSync("token");
   await deleteSecureItemSync("userInfo");
   await deleteSecureItemSync("loggedIn");
