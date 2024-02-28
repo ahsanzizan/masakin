@@ -40,7 +40,10 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Cache the user data using useMemo
-  const authData = useMemo(() => ({ user: loggedInUser, updateUser }), []);
+  const authData = useMemo(
+    () => ({ user: loggedInUser, updateUser }),
+    [loggedInUser]
+  );
 
   return (
     <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>
