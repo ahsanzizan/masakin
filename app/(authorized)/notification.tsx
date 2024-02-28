@@ -1,6 +1,7 @@
 import { LargeP, P, SmallP } from "@components/Text";
 import Wrapper from "@components/Wrapper";
 import Colors from "@constants/Colors";
+import { notifications } from "@utils/seeders/notifications";
 import { Dispatch, SetStateAction, useState } from "react";
 import {
   FlatList,
@@ -11,7 +12,7 @@ import {
   ViewStyle,
 } from "react-native";
 import { NotificationType } from "../../types/entities";
-import { notifications } from "@utils/seeders/notifications";
+import NotificationIcon from "@components/icons/NotificationIcon";
 
 type TabsType = "All" | "Read" | "Unread";
 
@@ -57,23 +58,25 @@ const NotificationsSection = ({
   notifications: NotificationType[];
 }) => {
   const renderNotification = ({ item }: { item: NotificationType }) => (
-    <View
+    <TouchableOpacity
       style={{
-        backgroundColor: Colors.neutral,
+        backgroundColor: 'rgba(217, 217, 217, .75)',
         flexDirection: "row",
         justifyContent: "space-between",
-        paddingHorizontal: 15,
-        paddingVertical: 10,
+        alignItems: "flex-start",
+        paddingHorizontal: 20,
+        paddingVertical: 15,
         borderRadius: 12,
       }}
     >
-      <View>
+      <View style={{ width: "85%" }}>
         <P style={{ fontWeight: "bold", marginBottom: 5 }}>{item.title}</P>
-        <SmallP style={{ color: Colors.gray, fontWeight: "600" }}>
+        <SmallP style={{ color: Colors.neutral, fontWeight: "600" }}>
           {item.description}
         </SmallP>
       </View>
-    </View>
+      <NotificationIcon />
+    </TouchableOpacity>
   );
 
   return (
@@ -86,8 +89,8 @@ const NotificationsSection = ({
       <FlatList
         data={notifications}
         renderItem={renderNotification}
-        ListHeaderComponent={View}
-        ListFooterComponent={View}
+        ListHeaderComponent={<View></View>}
+        ListFooterComponent={<View></View>}
         ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
       />
     </View>
