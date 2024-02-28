@@ -1,4 +1,3 @@
-import LoadingModal from "@components/LoadingModal";
 import TrendingRecipes from "@components/RecipeDisplays/TrendingRecipes";
 import { LargeP, SmallP } from "@components/Text";
 import Wrapper from "@components/Wrapper";
@@ -80,14 +79,11 @@ export default function Home() {
   const { user } = useAuthContext();
 
   return (
-    <>
-      <LoadingModal isActive={user.username === null} />
-      <Wrapper>
-        <Header user={user} />
-        <HeaderButtons />
-        <TrendingSection />
-      </Wrapper>
-    </>
+    <Wrapper>
+      <Header user={user} />
+      <HeaderButtons />
+      <TrendingSection />
+    </Wrapper>
   );
 }
 

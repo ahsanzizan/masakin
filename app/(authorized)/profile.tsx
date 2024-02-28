@@ -1,4 +1,3 @@
-import LoadingModal from "@components/LoadingModal";
 import { LargeP, P, SmallP } from "@components/Text";
 import Wrapper from "@components/Wrapper";
 import { useAuthContext } from "@components/contexts/AuthContext";
@@ -69,13 +68,10 @@ export default function Profile() {
   const { user } = useAuthContext();
 
   return (
-    <>
-      <LoadingModal isActive={user.username === null} />
-      <Wrapper>
-        <Header />
-        <ProfileStats user={user} />
-      </Wrapper>
-    </>
+    <Wrapper>
+      <Header />
+      <ProfileStats user={user} />
+    </Wrapper>
   );
 }
 
