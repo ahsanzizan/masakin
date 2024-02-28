@@ -1,10 +1,9 @@
-import { ReactNode, createContext, useContext, useMemo, useState } from "react";
-import { AuthUser } from "../../types/auth";
 import { useSession } from "@lib/auth";
+import { ReactNode, createContext, useContext, useMemo } from "react";
+import { AuthUser } from "../../types/auth";
 
 interface AuthContextType {
   user: AuthUser;
-  updateUser: (user: AuthUser) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -27,21 +26,15 @@ const defaultValue: AuthContextType = {
     email: null,
     avatar: null,
   },
-  updateUser: (user) => {},
 };
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   // User state with the default value of all-nulls user data
-  const [user, setUser] = useState<AuthUser>(defaultValue.user);
   const { user: loggedInUser } = useSession();
-
-  const updateUser = (user: AuthUser) => {
-    setUser(user);
-  };
 
   // Cache the user data using useMemo
   const authData = useMemo(
-    () => ({ user: loggedInUser, updateUser }),
+    () => ({ user: loggedInUser ?? defaultValue.user }),
     [loggedInUser]
   );
 
