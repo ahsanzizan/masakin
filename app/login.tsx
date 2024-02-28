@@ -1,26 +1,107 @@
 import { PrimaryButton, ReversedPrimaryButton } from "@components/Button";
 import { InputField } from "@components/Input";
 import LoadingModal from "@components/LoadingModal";
+import RootContainer from "@components/RootContainer";
 import { H2, LargeP, P, SmallP } from "@components/Text";
 import Wrapper from "@components/Wrapper";
 import Colors from "@constants/Colors";
 import { useSession } from "@lib/auth";
-import dimensions from "@utils/dimensions";
-import { Redirect, useRouter } from "expo-router";
-import { useState } from "react";
+import { Redirect, router } from "expo-router";
+import { Dispatch, SetStateAction, useState } from "react";
 import {
   Alert,
   GestureResponderEvent,
-  SafeAreaView,
-  ScrollView,
   StatusBar,
+  StyleProp,
   View,
+  ViewStyle,
 } from "react-native";
+
+const Header = () => (
+  <View style={styles.greetings as StyleProp<ViewStyle>}>
+    <H2 style={{ textAlign: "left" }}>Hello There,</H2>
+    <LargeP>Welcome Back!</LargeP>
+  </View>
+);
+
+const Inputs = ({
+  username,
+  setUsername,
+  password,
+  setPassword,
+}: Readonly<{
+  username: string;
+  setUsername: Dispatch<SetStateAction<string>>;
+  password: string;
+  setPassword: Dispatch<SetStateAction<string>>;
+}>) => (
+  <View style={styles.inputsContainer as StyleProp<ViewStyle>}>
+    <View style={styles.inputField as StyleProp<ViewStyle>}>
+      <P>Username</P>
+      <InputField
+        placeholder="Enter Username"
+        onChangeText={(text) => setUsername(text)}
+        value={username}
+      />
+    </View>
+    <View style={styles.inputField as StyleProp<ViewStyle>}>
+      <P>Password</P>
+      <InputField
+        placeholder="Enter Password"
+        isSecure
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+      />
+    </View>
+  </View>
+);
+
+const SignInButton = ({
+  handleSignIn,
+}: {
+  handleSignIn: (e: GestureResponderEvent) => Promise<void>;
+}) => (
+  <PrimaryButton style={{ marginBottom: 20 }} onPress={handleSignIn}>
+    <P
+      style={{
+        textAlign: "center",
+        fontWeight: "bold",
+      }}
+      isDark
+    >
+      Sign In
+    </P>
+  </PrimaryButton>
+);
+
+const Divider = () => (
+  <View style={styles.dividerContainer as StyleProp<ViewStyle>}>
+    <View style={styles.dividerLine as StyleProp<ViewStyle>} />
+    <SmallP style={{ fontWeight: "bold" }}>OR</SmallP>
+    <View style={styles.dividerLine as StyleProp<ViewStyle>} />
+  </View>
+);
+
+const SignUpButton = () => (
+  <ReversedPrimaryButton
+    style={{ marginTop: 20 }}
+    onPress={() => router.push("/register")}
+  >
+    <P
+      style={{
+        textAlign: "center",
+        fontWeight: "bold",
+        color: Colors.primary,
+      }}
+    >
+      Sign Up
+    </P>
+  </ReversedPrimaryButton>
+);
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const { login, loggedIn } = useSession();
-  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -60,95 +141,43 @@ export default function Login() {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: Colors.light.background,
-      }}
-    >
+    <RootContainer>
       <LoadingModal isActive={loading} />
       <StatusBar />
       <Wrapper>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            width: "100%",
-            marginBottom: 58,
-          }}
-        >
-          <H2 style={{ textAlign: "left" }}>Hello,</H2>
-          <LargeP>Welcome Back!</LargeP>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            gap: 30,
-            marginBottom: 38,
-          }}
-        >
-          <View style={{ flex: 1, flexDirection: "column", gap: 5 }}>
-            <P>Username</P>
-            <InputField
-              placeholder="Enter Username"
-              onChangeText={(text) => setUsername(text)}
-              value={username}
-            />
-          </View>
-          <View style={{ flex: 1, flexDirection: "column", gap: 5 }}>
-            <P>Password</P>
-            <InputField
-              placeholder="Enter Password"
-              isSecure
-              onChangeText={(text) => setPassword(text)}
-              value={password}
-            />
-          </View>
-        </View>
-        <PrimaryButton style={{ marginBottom: 20 }} onPress={handleSignIn}>
-          <P
-            style={{
-              textAlign: "center",
-              fontWeight: "bold",
-            }}
-            isDark
-          >
-            Sign In
-          </P>
-        </PrimaryButton>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <View
-            style={{ width: "40%", height: 1, backgroundColor: Colors.black }}
-          />
-          <SmallP style={{ fontWeight: "bold" }}>OR</SmallP>
-          <View
-            style={{ width: "40%", height: 1, backgroundColor: Colors.black }}
-          />
-        </View>
-        <ReversedPrimaryButton
-          style={{ marginTop: 20 }}
-          onPress={() => router.push("/register")}
-        >
-          <P
-            style={{
-              textAlign: "center",
-              fontWeight: "bold",
-              color: Colors.primary,
-            }}
-          >
-            Sign Up
-          </P>
-        </ReversedPrimaryButton>
+        <Header />
+        <Inputs
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+        />
+        <SignInButton handleSignIn={handleSignIn} />
+        <Divider />
+        <SignUpButton />
       </Wrapper>
-    </SafeAreaView>
+    </RootContainer>
   );
 }
+
+const styles = {
+  greetings: {
+    flex: 1,
+    flexDirection: "column",
+    width: "100%",
+    marginBottom: 58,
+  },
+  inputsContainer: {
+    flex: 1,
+    flexDirection: "column",
+    gap: 30,
+    marginBottom: 38,
+  },
+  inputField: { flex: 1, flexDirection: "column", gap: 5 },
+  dividerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  dividerLine: { width: "40%", height: 1, backgroundColor: Colors.black },
+};
