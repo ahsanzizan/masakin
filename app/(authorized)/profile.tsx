@@ -1,9 +1,9 @@
 import LoadingModal from "@components/LoadingModal";
 import { LargeP, P, SmallP } from "@components/Text";
 import Wrapper from "@components/Wrapper";
+import { useAuthContext } from "@components/contexts/AuthContext";
 import MoreIcon from "@components/icons/MoreIcon";
 import Colors from "@constants/Colors";
-import { useSession } from "@lib/auth";
 import {
   Image,
   StyleProp,
@@ -66,7 +66,7 @@ const ProfileStats = ({ user }: { user: AuthUser }) => (
 );
 
 export default function Profile() {
-  const { user } = useSession();
+  const { user } = useAuthContext();
 
   return (
     <>

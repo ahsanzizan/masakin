@@ -1,8 +1,9 @@
-import { Redirect, Slot } from "expo-router";
-import { SafeAreaView, StatusBar, View } from "react-native";
 import BottomBar from "@components/BottomBar";
-import Colors from "@constants/Colors";
+import RootContainer from "@components/RootContainer";
+import { AuthContextProvider } from "@components/contexts/AuthContext";
 import { useSession } from "@lib/auth";
+import { Redirect, Slot } from "expo-router";
+import { StatusBar, View } from "react-native";
 
 export default function Protected() {
   const { loggedIn } = useSession();
@@ -13,19 +14,14 @@ export default function Protected() {
   if (!loggedIn) return <Redirect href={"/login"} />;
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: Colors.light.background,
-      }}
-    >
-      <StatusBar />
-      <Slot />
-      <View>
-        <BottomBar />
-      </View>
-    </SafeAreaView>
+    <AuthContextProvider>
+      <RootContainer>
+        <StatusBar />
+        <Slot />
+        <View>
+          <BottomBar />
+        </View>
+      </RootContainer>
+    </AuthContextProvider>
   );
 }
