@@ -20,12 +20,7 @@ export const deleteSecureItemSync = async (key: Keys) => {
 };
 
 export const clearSecureItemsSync = async () => {
-  if (
-    (await getSecureItemSync("token")) &&
-    (await getSecureItemSync("userInfo"))
-  ) {
-    await deleteSecureItemSync("token");
-    await deleteSecureItemSync("userInfo");
-    await deleteSecureItemSync("loggedIn");
-  }
+  await deleteSecureItemSync("token");
+  await deleteSecureItemSync("userInfo");
+  await deleteSecureItemSync("loggedIn");
 };
