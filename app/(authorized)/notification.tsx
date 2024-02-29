@@ -1,5 +1,6 @@
 import { LargeP, P, SmallP } from "@components/Text";
 import Wrapper from "@components/Wrapper";
+import NotificationIcon from "@components/icons/NotificationIcon";
 import Colors from "@constants/Colors";
 import { notifications } from "@utils/seeders/notifications";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -12,7 +13,6 @@ import {
   ViewStyle,
 } from "react-native";
 import { NotificationType } from "../../types/entities";
-import NotificationIcon from "@components/icons/NotificationIcon";
 
 type TabsType = "All" | "Read" | "Unread";
 
@@ -52,6 +52,17 @@ const TabButtons = ({
   );
 };
 
+function isNotToday(dateString: Date): boolean {
+  const dateToCheck = new Date(dateString);
+
+  const today = new Date();
+
+  today.setHours(0, 0, 0, 0);
+  dateToCheck.setHours(0, 0, 0, 0);
+
+  return dateToCheck < today;
+}
+
 const NotificationsSection = ({
   notifications,
 }: {
@@ -60,7 +71,7 @@ const NotificationsSection = ({
   const renderNotification = ({ item }: { item: NotificationType }) => (
     <TouchableOpacity
       style={{
-        backgroundColor: 'rgba(217, 217, 217, .75)',
+        backgroundColor: "rgba(217, 217, 217, .75)",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "flex-start",
@@ -80,19 +91,37 @@ const NotificationsSection = ({
   );
 
   return (
-    <View>
-      <View style={styles.headerContainer as StyleProp<ViewStyle>}>
-        <SmallP style={{ textAlign: "center", fontWeight: "bold" }}>
-          Today
-        </SmallP>
+    <View style={styles.notificationsContainer as StyleProp<ViewStyle>}>
+      <View>
+        <View style={styles.headerContainer as StyleProp<ViewStyle>}>
+          <SmallP style={{ textAlign: "center", fontWeight: "bold" }}>
+            Today
+          </SmallP>
+        </View>
+        <FlatList
+          data={notifications}
+          renderItem={renderNotification}
+          ListHeaderComponent={<View></View>}
+          ListFooterComponent={<View></View>}
+          ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+        />
       </View>
-      <FlatList
-        data={notifications}
-        renderItem={renderNotification}
-        ListHeaderComponent={<View></View>}
-        ListFooterComponent={<View></View>}
-        ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
-      />
+      <View>
+        <View style={styles.headerContainer as StyleProp<ViewStyle>}>
+          <SmallP style={{ textAlign: "center", fontWeight: "bold" }}>
+            Others
+          </SmallP>
+        </View>
+        <FlatList
+          data={notifications.filter((notification) =>
+            isNotToday(notification.date)
+          )}
+          renderItem={renderNotification}
+          ListHeaderComponent={<View></View>}
+          ListFooterComponent={<View></View>}
+          ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+        />
+      </View>
     </View>
   );
 };
@@ -122,6 +151,9 @@ const styles = {
   tabsContainer: {
     width: "100%",
     flexDirection: "row",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: Colors.gray,
     justifyContent: "space-between",
     marginBottom: 32,
   },
@@ -135,4 +167,5 @@ const styles = {
     textAlign: "center",
     fontWeight: "600",
   },
+  notificationsContainer: { flexDirection: "column", gap: 20 },
 };
