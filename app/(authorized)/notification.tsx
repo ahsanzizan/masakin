@@ -100,6 +100,7 @@ const NotificationsSection = ({
         </View>
         <FlatList
           data={notifications}
+          keyExtractor={(item, index) => `${index}-${item.id}`}
           renderItem={renderNotification}
           ListHeaderComponent={<View></View>}
           ListFooterComponent={<View></View>}

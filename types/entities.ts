@@ -65,6 +65,7 @@ export interface Followership {
 }
 
 export interface NotificationType {
+  id: string;
   title: string;
   description: string;
   date: Date;
